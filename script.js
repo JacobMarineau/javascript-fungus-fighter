@@ -46,8 +46,9 @@ function onReady() {
 function useAttack(ability) {
   const hpText = document.querySelector(".hp-text");
   hpText.textContent = `${fungusHP} HP`;
-  if (fungusHP < 0) {
+  if (fungusHP > 0) {
     fungusHP -= ability.damage;
+  } else {
     fungusHP = 0;
     console.log("Fungus defeated");
   }
