@@ -46,11 +46,16 @@ function onReady() {
 function useAttack(ability) {
   const hpText = document.querySelector(".hp-text");
   const apText = document.querySelector(".ap-text");
+  const buttons = document.querySelectorAll(".attack-btn");
+  const apMeter = document.getElementById("ap-meter");
+  const hpMeter = document.getElementById("hp-meter");
   const fungus = document.querySelector(".freaky-fungus");
 
   if (actionPoints >= ability.cost) {
     fungusHP -= ability.damage;
     actionPoints -= ability.cost;
+    apMeter.value -= ability.cost;
+    hpMeter.value -= ability.damage;
     if (fungusHP < 0) {
       fungusHP = 0;
     }
@@ -65,6 +70,7 @@ function useAttack(ability) {
   if (actionPoints >= fungusHP) {
     return;
   } else if (actionPoints < ability.cost) {
+    buttons.className = "disabled";
     fungus.className = "freaky-fungus jump";
   }
 }
