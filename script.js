@@ -45,21 +45,19 @@ function onReady() {
 }
 function useAttack(ability) {
   const hpText = document.querySelector(".hp-text");
-  hpText.textContent = `${fungusHP} HP`;
-  if (fungusHP > 0) {
-    fungusHP -= ability.damage;
-  } else {
-    fungusHP = 0;
-    console.log("Fungus defeated");
-  }
-
   const apText = document.querySelector(".ap-text");
-  apText.textContent = `${actionPoints} AP`;
-  if (actionPoints < 0) {
+
+  if (actionPoints >= ability.cost) {
+    fungusHP -= ability.damage;
     actionPoints -= ability.cost;
-    actionPoints = 0;
-    console.log("No action points, you lost!");
-    return;
+    if (fungusHP < 0) {
+      fungusHP = 0;
+    }
+    hpText.textContent = `${fungusHP} HP`;
+    apText.textContent = `${actionPoints} AP`;
+  }
+  if (actionPoints < ability.cost && fungusHP < 0) {
+    console.log("You lost!");
   }
 }
 onReady();
