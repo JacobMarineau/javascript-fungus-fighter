@@ -46,6 +46,7 @@ function onReady() {
 function useAttack(ability) {
   const hpText = document.querySelector(".hp-text");
   const apText = document.querySelector(".ap-text");
+  const fungus = document.querySelector(".freaky-fungus");
 
   if (actionPoints >= ability.cost) {
     fungusHP -= ability.damage;
@@ -56,8 +57,14 @@ function useAttack(ability) {
     hpText.textContent = `${fungusHP} HP`;
     apText.textContent = `${actionPoints} AP`;
   }
-  if (actionPoints < ability.cost && fungusHP < 0) {
+  if (fungusHP === 0) {
+    console.log("Fungus defeated!");
+    fungus.className = "freaky-fungus dead";
+  }
+
+  if (actionPoints < ability.cost) {
     console.log("You lost!");
+    fungus.className = "freaky-fungus jump";
   }
 }
 onReady();
