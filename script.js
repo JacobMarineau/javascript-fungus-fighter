@@ -3,6 +3,7 @@
 // Example:
 // let fungusHP = 100;
 let fungusHP = 100;
+let actionPoints = 100;
 function onReady() {
   console.log("Ready to go!");
 
@@ -25,11 +26,39 @@ function onReady() {
     cost: 25,
   };
 
+  document
+    .querySelector(".arcane-scepter")
+    .addEventListener("click", () => useAttack(arcaneScepter));
+  document
+    .querySelector(".entangle")
+    .addEventListener("click", () => useAttack(entangle));
+  document
+    .querySelector(".dragon-blade")
+    .addEventListener("click", () => useAttack(dragonBlade));
+  document
+    .querySelector(".star-fire")
+    .addEventListener("click", () => useAttack(starFire));
   // 🧠 Remember
   // - Handle events that ->
   // - Updates state which is ->
   // - Rendered to the DOM
-  console.log(arcaneScepter.cost);
 }
+function useAttack(ability) {
+  const hpText = document.querySelector(".hp-text");
+  hpText.textContent = `${fungusHP} HP`;
+  if (fungusHP < 0) {
+    fungusHP -= ability.damage;
+    fungusHP = 0;
+    console.log("Fungus defeated");
+  }
 
+  const apText = document.querySelector(".ap-text");
+  apText.textContent = `${actionPoints} AP`;
+  if (actionPoints < 0) {
+    actionPoints -= ability.cost;
+    actionPoints = 0;
+    console.log("No action points, you lost!");
+    return;
+  }
+}
 onReady();
