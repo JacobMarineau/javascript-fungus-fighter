@@ -62,8 +62,9 @@ function useAttack(ability) {
     fungus.className = "freaky-fungus dead";
   }
 
-  if (actionPoints < ability.cost) {
-    console.log("You lost!");
+  if (actionPoints >= fungusHP) {
+    return;
+  } else if (actionPoints < ability.cost) {
     fungus.className = "freaky-fungus jump";
   }
 }
